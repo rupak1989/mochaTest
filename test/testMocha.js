@@ -2,7 +2,8 @@ var assert 	= require('assert'),
 	chai 	= require('chai'),
 	fs 		= require('fs'),
 	server 	= require('../app.js'),
-	chaiHttp = require('chai-http');
+	chaiHttp = require('chai-http'),
+	expect 	= chai.expect;
 
 
 chai.use(chaiHttp);
@@ -27,7 +28,13 @@ describe('/GET testMocha', function() {
 				});
 			});
 		});
-
+		it('test expect ', function(done){
+			chai.request(server).get('/testMocha').end(function(err, res){
+					expect(res.body).to.have.a.property("success", true);
+           			expect(res.body).to.have.a.property("info", "mocha testing");
+           			done();
+			});
+		});
 
 
 });
